@@ -12,6 +12,34 @@ No build step, no dependencies. Open `index.html`, or serve the folder:
 npx serve .          # or: python -m http.server
 ```
 
+## Deploying to Vercel
+
+The repo is already set up for it — no config needed beyond what's committed.
+
+**Via the dashboard:** push this repo to GitHub, then
+[import it on Vercel](https://vercel.com/new). It has no `package.json`, so
+Vercel auto-detects it as a static site (Framework Preset: "Other") and
+deploys the repo root as-is — no build command, no output directory to set.
+
+**Via the CLI**, from this folder:
+
+```sh
+npx vercel        # first deploy — follow the prompts, links the project
+npx vercel --prod # promote to production
+```
+
+Two things already handled:
+
+- **`.gitignore`** excludes `Guest house images/` (120MB of raw originals —
+  the site only ever uses the processed copies in `assets/img/`, ~5.5MB
+  total) and `.claude/`, which aren't part of the site.
+- **`vercel.json`** sets a day-long cache on `assets/img/*` (the filenames
+  aren't content-hashed, so nothing longer — replacing a photo under the
+  same name should still reach visitors reasonably soon) plus baseline
+  `X-Content-Type-Options` / `Referrer-Policy` headers. No rewrites are
+  needed: routing is client-side hash fragments (`#/room/garden-room`), so
+  every URL Vercel ever serves is just `index.html`.
+
 ## Files
 
 ```

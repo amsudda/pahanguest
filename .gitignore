@@ -1,0 +1,15 @@
+# Raw source photography (120MB+ of originals, incl. RAW .dng files).
+# The site only ever references the processed, resized copies in assets/img.
+Guest house images/
+
+# Claude Code project metadata — not part of the site.
+.claude/
+skills-lock.json
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Vercel
+.vercel

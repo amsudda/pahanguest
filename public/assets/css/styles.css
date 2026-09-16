@@ -74,7 +74,6 @@ body {
 body.is-locked { overflow: hidden; }
 
 a { color: var(--forest); text-decoration: none; }
-a:hover { color: var(--terracotta); }
 
 :focus-visible {
   outline: 2px solid var(--terracotta);
@@ -245,11 +244,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   letter-spacing: -0.02em;
   color: inherit;
 }
-.hdr__logo:hover { color: inherit; }
 
 .hdr__nav { display: flex; align-items: center; gap: clamp(14px, 1.8vw, 28px); }
 .hdr__nav a { font: 500 0.9375rem/1.2 Inter, sans-serif; color: inherit; }
-.hdr__nav a:hover { color: var(--terracotta); }
 
 .hdr__lang {
   display: flex;
@@ -527,6 +524,22 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   font: 400 1.0625rem/1.5 Inter, sans-serif;
   color: var(--sand);
 }
+/* Ten icons landing at once as a single block barely registers as
+   deliberate. Same one-shot stagger convention as the gallery grid,
+   riding on top of the section's own fade (harmless overlap: the
+   section arrives, then its items finish populating in). */
+.js .amen__list li { opacity: 0; }
+.js [data-reveal].is-in .amen__list li { animation: fadeUp var(--t-slow) var(--ease) var(--d, 0ms) both; }
+.amen__list li:nth-child(1)  { --d: 0ms; }
+.amen__list li:nth-child(2)  { --d: 30ms; }
+.amen__list li:nth-child(3)  { --d: 60ms; }
+.amen__list li:nth-child(4)  { --d: 90ms; }
+.amen__list li:nth-child(5)  { --d: 120ms; }
+.amen__list li:nth-child(6)  { --d: 150ms; }
+.amen__list li:nth-child(7)  { --d: 180ms; }
+.amen__list li:nth-child(8)  { --d: 210ms; }
+.amen__list li:nth-child(9)  { --d: 240ms; }
+.amen__list li:nth-child(10) { --d: 270ms; }
 
 .amen__photo { align-self: stretch; margin-right: calc(var(--gut) * -1); display: flex; }
 .amen__photo .ph, .amen__photo .photo { flex: 1; }
@@ -547,6 +560,10 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   gap: clamp(12px, 1.6vw, 20px);
   margin-top: clamp(28px, 4vw, 48px);
 }
+/* The grid carries [data-reveal] so IntersectionObserver still fires once
+   for the whole section, same as everywhere else — but the container
+   itself shouldn't visibly move; only its six tiles do, staggered below. */
+.js .gal__grid[data-reveal] { opacity: 1; transform: none; transition: none; }
 
 .gal__item {
   display: block;
@@ -559,12 +576,27 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   cursor: zoom-in;
 }
 
+/* Six tiles arriving as one block read as a slab popping in. Staggering
+   them (same fadeUp keyframe and --d convention as the hero lines and the
+   mobile menu) is an animation, not a transition, specifically so it
+   doesn't fight the shared press-feedback transition below, which also
+   owns .gal__item's transform — animations and transitions on the same
+   property coexist fine; two competing `transition` rules wouldn't. */
+.js .gal__grid .gal__item { opacity: 0; }
+.js .gal__grid.is-in .gal__item { animation: fadeUp var(--t-slow) var(--ease) var(--d, 0ms) both; }
+.gal__grid .gal__item:nth-child(1) { --d: 0ms; }
+.gal__grid .gal__item:nth-child(2) { --d: 50ms; }
+.gal__grid .gal__item:nth-child(3) { --d: 100ms; }
+.gal__grid .gal__item:nth-child(4) { --d: 150ms; }
+.gal__grid .gal__item:nth-child(5) { --d: 200ms; }
+.gal__grid .gal__item:nth-child(6) { --d: 250ms; }
+
 .gal__img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 500ms var(--ease);
+  transition: transform var(--t-mid) var(--ease);
 }
 
 /* ------------------------------ location ---------------------------- */
@@ -744,7 +776,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 .foot__txt--gap { margin-bottom: 16px; }
 .foot__txt a { color: var(--sage); }
-.foot__txt a:hover { color: var(--sand); }
 
 .foot__map {
   height: 96px;
@@ -874,11 +905,24 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   cursor: pointer;
 }
 .menu__nav { margin-top: auto; display: flex; flex-direction: column; gap: 6px; }
+/* transition + ancestor class, not animation — matches .sheet__panel and
+   .lb__stage below. A keyframe restarts from frame one if interrupted;
+   opening/closing the menu quickly would replay the stagger from scratch
+   instead of reversing from wherever it was. Safe to do here because
+   these are plain links with no other rule competing for `transform`. */
 .menu__nav a {
   font: 300 2.25rem/1.2 Outfit, sans-serif;
   color: var(--sand);
-  animation: fadeUp 500ms var(--ease) var(--d, 0ms) both;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 500ms var(--ease) var(--d, 0ms), transform 500ms var(--ease) var(--d, 0ms);
 }
+.menu.is-open .menu__nav a { opacity: 1; transform: translateY(0); }
+/* .menu__cta stays on `animation`: it's also a .btn, and .btn's shared
+   press-feedback rule already owns a `transition` on transform (see
+   "press feedback" below) — a second `transition` here would win the
+   cascade outright and silently replace it, not merge with it. Animations
+   don't have that conflict, so the button keeps its snappy :active scale. */
 .menu__cta { margin-top: 32px; min-height: 52px; font-size: 1rem; animation: fadeUp 500ms var(--ease) var(--d, 0ms) both; }
 .menu__meta {
   margin-top: 20px;
@@ -1173,6 +1217,10 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
    how you get a photo that stays zoomed after you tapped it.
    -------------------------------------------------------------------- */
 @media (hover: hover) and (pointer: fine) {
+  a:hover { color: var(--terracotta); }
+  .hdr__logo:hover { color: inherit; }
+  .hdr__nav a:hover { color: var(--terracotta); }
+  .foot__txt a:hover { color: var(--sand); }
   .btn--terracotta:hover { background: var(--terracotta-dark); color: var(--white); }
   .step__b:hover:not(:disabled) { background: var(--mist); }
   .gal__item:hover .gal__img { transform: scale(1.04); }

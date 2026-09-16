@@ -413,7 +413,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 .welcome__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: clamp(32px, 5vw, 72px);
   align-items: start;
 }
@@ -456,7 +456,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   position: sticky;
   top: var(--stick, 92px);
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: clamp(20px, 3vw, 44px);
   align-items: center;
   border: 1px solid var(--mist);
@@ -484,7 +484,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 .spec {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(120px, 100%), 1fr));
   gap: 10px 20px;
   margin-bottom: 18px;
   font: 400 0.9375rem/1.5 Inter, sans-serif;
@@ -507,14 +507,14 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 .amen__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: clamp(32px, 5vw, 64px);
 }
 .amen .h2 { margin-bottom: 28px; }
 
 .amen__list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
   gap: 18px 32px;
 }
 .amen__list li {
@@ -556,7 +556,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
    -------------------------------------------------------------------- */
 .gal__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: clamp(12px, 1.6vw, 20px);
   margin-top: clamp(28px, 4vw, 48px);
 }
@@ -607,7 +607,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 .loc__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: clamp(28px, 4vw, 56px);
   align-items: start;
 }
@@ -674,7 +674,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .faq > .wrap { padding-inline: 0; }
 .faq__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: clamp(28px, 5vw, 72px);
   align-items: start;
 }
@@ -723,7 +723,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .book > .wrap { position: relative; padding-inline: 0; }
 .book__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: clamp(28px, 5vw, 64px);
   align-items: start;
 }
@@ -764,7 +764,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   margin-inline: auto;
   padding-inline: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
   gap: 36px;
 }
 .foot__brand { margin-bottom: 12px; font: 400 1.5rem/1.2 Outfit, sans-serif; letter-spacing: -0.02em; }
@@ -1057,7 +1057,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 .rpage__pics {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: 14px;
   margin-bottom: clamp(36px, 5vw, 64px);
 }
@@ -1065,7 +1065,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 .rpage__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   gap: clamp(28px, 5vw, 64px);
   align-items: start;
 }
@@ -1075,7 +1075,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .rpage__body--last { margin-bottom: 0; }
 .rpage__amen {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
   gap: 8px 24px;
   margin-bottom: 28px;
   font: 400 1rem/1.6 Inter, sans-serif;

@@ -14,7 +14,7 @@
   'use strict';
 
   var body   = document.body;
-  var PHONE  = body.dataset.phone || '94771234567';
+  var PHONE  = body.dataset.phone || '94772813748';
   var HOUSE  = body.dataset.house || 'Pahan Guest';
   var NARROW = window.matchMedia('(max-width: 820px)');
   var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)');

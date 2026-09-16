@@ -1,29 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pahan Guest — Your Perfect Stay in Ancient Anuradhapura</title>
-<meta name="description" content="A quiet house in a green garden, ten minutes from the Sacred City. Three rooms and hosts who help you plan every day in Anuradhapura.">
-<meta name="theme-color" content="#2F4A3A">
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="Pahan Guest — Your Perfect Stay in Ancient Anuradhapura">
-<meta property="og:description" content="Three rooms, a wide verandah, and a garden the birds get to first. Ten minutes from the Sacred City.">
-<meta property="og:locale" content="en">
-
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%232F4A3A'/><text x='16' y='23' font-family='Georgia,serif' font-size='20' fill='%23F5F0E6' text-anchor='middle'>P</text></svg>">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css">
-
-<!-- Marks that JS is running, so reveal animations only hide content when they can also show it again. -->
-<script>document.documentElement.className += " js";</script>
-</head>
-
-<body data-phone="94772813748" data-house="Pahan Guest">
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout
+  title="Pahan Guest — Your Perfect Stay in Ancient Anuradhapura"
+  description="A quiet house in a green garden, ten minutes from the Sacred City. Three rooms and hosts who help you plan every day in Anuradhapura."
+  ogDescription="Three rooms, a wide verandah, and a garden the birds get to first. Ten minutes from the Sacred City."
+>
 
 <a class="skip" href="#welcome">Skip to content</a>
 
@@ -61,10 +43,10 @@
   <section class="hero">
     <div class="hero__frame" id="heroFrame">
       <div class="hero__slideshow" id="heroSlideshow">
-        <img class="hero__slide is-on" src="assets/img/hero-1.jpg" alt="The guest house seen from the garden, tuk-tuk parked by the verandah" width="2400" height="1500" fetchpriority="high">
-        <img class="hero__slide" src="assets/img/hero-2.jpg" alt="Front of the house framed by trees, balconies above the entrance" width="2400" height="1500" loading="lazy">
-        <img class="hero__slide" src="assets/img/hero-3.jpg" alt="The verandah sitting area, sofas around a low table" width="2400" height="1500" loading="lazy">
-        <img class="hero__slide" src="assets/img/hero-4.jpg" alt="Low angle view of the house and balcony among the trees" width="2400" height="1500" loading="lazy">
+        <img class="hero__slide is-on" src="/assets/img/hero-1.jpg" alt="The guest house seen from the garden, tuk-tuk parked by the verandah" width="2400" height="1500" fetchpriority="high">
+        <img class="hero__slide" src="/assets/img/hero-2.jpg" alt="Front of the house framed by trees, balconies above the entrance" width="2400" height="1500" loading="lazy">
+        <img class="hero__slide" src="/assets/img/hero-3.jpg" alt="The verandah sitting area, sofas around a low table" width="2400" height="1500" loading="lazy">
+        <img class="hero__slide" src="/assets/img/hero-4.jpg" alt="Low angle view of the house and balcony among the trees" width="2400" height="1500" loading="lazy">
       </div>
       <div class="hero__scrim"></div>
     </div>
@@ -114,10 +96,10 @@
     <div class="wrap welcome__grid">
       <div class="welcome__pics" data-reveal>
         <figure class="frame">
-          <img class="photo ph--3x4" src="assets/img/welcome-main.jpg" alt="The white two-storey house and balcony, with the garden and tuk-tuk in front" width="1400" height="1867" loading="lazy">
+          <img class="photo ph--3x4" src="/assets/img/welcome-main.jpg" alt="The white two-storey house and balcony, with the garden and tuk-tuk in front" width="1400" height="1867" loading="lazy">
         </figure>
         <figure class="frame frame--inset">
-          <img class="photo ph--4x5" src="assets/img/welcome-inset.jpg" alt="A corner of the upstairs balcony, turned columns and an arched window" width="900" height="1125" loading="lazy">
+          <img class="photo ph--4x5" src="/assets/img/welcome-inset.jpg" alt="A corner of the upstairs balcony, turned columns and an arched window" width="900" height="1125" loading="lazy">
         </figure>
       </div>
 
@@ -148,9 +130,9 @@
       <article class="room room--white" style="--stick:92px">
         <div class="room__media">
           <div class="shots" role="group" aria-label="Garden Room photos">
-            <div class="shots__i"><img class="photo ph--4x3" src="assets/img/house-garden.jpg" alt="The guest house seen across the lawn, with the tuk-tuk parked by the verandah" loading="lazy"></div>
-            <div class="shots__i"><img class="photo ph--4x3" src="assets/img/room-beds.jpg" alt="A guest room with a double bed and a single bed" loading="lazy"></div>
-            <div class="shots__i"><img class="photo ph--4x3" src="assets/img/twin-room.jpg" alt="A guest room with two beds and a garden view" loading="lazy"></div>
+            <div class="shots__i"><img class="photo ph--4x3" src="/assets/img/house-garden.jpg" alt="The guest house seen across the lawn, with the tuk-tuk parked by the verandah" loading="lazy"></div>
+            <div class="shots__i"><img class="photo ph--4x3" src="/assets/img/room-beds.jpg" alt="A guest room with a double bed and a single bed" loading="lazy"></div>
+            <div class="shots__i"><img class="photo ph--4x3" src="/assets/img/twin-room.jpg" alt="A guest room with two beds and a garden view" loading="lazy"></div>
           </div>
           <div class="shots__dots" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
         </div>
@@ -174,9 +156,9 @@
       <article class="room room--sand" style="--stick:110px">
         <div class="room__media">
           <div class="shots" role="group" aria-label="Balcony Room photos">
-            <div class="shots__i"><img class="photo ph--4x3" src="assets/img/balcony.jpg" alt="The upstairs balcony, with turned white balusters and a mango tree behind" loading="lazy"></div>
-            <div class="shots__i"><img class="photo ph--4x3" src="assets/img/dining.jpg" alt="The dining room, tables laid under a ceiling fan" loading="lazy"></div>
-            <div class="shots__i"><img class="photo ph--4x3" src="assets/img/entrance-path.jpg" alt="Stepping stones across the garden leading to the front steps" loading="lazy"></div>
+            <div class="shots__i"><img class="photo ph--4x3" src="/assets/img/balcony.jpg" alt="The upstairs balcony, with turned white balusters and a mango tree behind" loading="lazy"></div>
+            <div class="shots__i"><img class="photo ph--4x3" src="/assets/img/dining.jpg" alt="The dining room, tables laid under a ceiling fan" loading="lazy"></div>
+            <div class="shots__i"><img class="photo ph--4x3" src="/assets/img/entrance-path.jpg" alt="Stepping stones across the garden leading to the front steps" loading="lazy"></div>
           </div>
           <div class="shots__dots" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
         </div>
@@ -200,9 +182,9 @@
       <article class="room room--white" style="--stick:128px">
         <div class="room__media">
           <div class="shots" role="group" aria-label="Family Room photos">
-            <div class="shots__i"><img class="photo ph--4x3" src="assets/img/house-front.jpg" alt="The front of the white two-storey house, framed by a tree" loading="lazy"></div>
-            <div class="shots__i"><img class="photo ph--4x3" src="assets/img/twin-room.jpg" alt="A guest room with two beds and a garden view" loading="lazy"></div>
-            <div class="shots__i"><img class="photo ph--4x3" src="assets/img/room-beds.jpg" alt="A guest room with a double bed and a single bed" loading="lazy"></div>
+            <div class="shots__i"><img class="photo ph--4x3" src="/assets/img/house-front.jpg" alt="The front of the white two-storey house, framed by a tree" loading="lazy"></div>
+            <div class="shots__i"><img class="photo ph--4x3" src="/assets/img/twin-room.jpg" alt="A guest room with two beds and a garden view" loading="lazy"></div>
+            <div class="shots__i"><img class="photo ph--4x3" src="/assets/img/room-beds.jpg" alt="A guest room with a double bed and a single bed" loading="lazy"></div>
           </div>
           <div class="shots__dots" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
         </div>
@@ -249,7 +231,7 @@
       </div>
 
       <div class="amen__photo" data-reveal>
-        <img class="photo" src="assets/img/amen-garden.jpg" alt="The house and garden, tuk-tuk parked under the trees" width="1800" height="1012" loading="lazy">
+        <img class="photo" src="/assets/img/amen-garden.jpg" alt="The house and garden, tuk-tuk parked under the trees" width="1800" height="1012" loading="lazy">
       </div>
     </div>
 
@@ -262,12 +244,12 @@
       <p class="lede lede--muted gal__sub">From the lane, through the garden, up to the balcony.</p>
 
       <div class="gal__grid" data-reveal>
-        <button type="button" class="gal__item" data-lb="0" aria-label="Open photo: the house and garden from the lawn"><img class="gal__img" src="assets/img/house-garden.jpg" alt="The guest house seen across the lawn, with the tuk-tuk parked by the verandah" width="1800" height="963" loading="lazy" decoding="async"></button>
-        <button type="button" class="gal__item" data-lb="1" aria-label="Open photo: the upstairs balcony and the mango tree"><img class="gal__img" src="assets/img/balcony.jpg" alt="The upstairs balcony, with turned white balusters, potted plants and a mango tree behind" width="1100" height="1214" loading="lazy" decoding="async"></button>
-        <button type="button" class="gal__item" data-lb="2" aria-label="Open photo: the house from the garden"><img class="gal__img" src="assets/img/house-front.jpg" alt="The front of the white two-storey house, framed by a tree, with the balconies above the entrance" width="2400" height="1550" loading="lazy" decoding="async"></button>
-        <button type="button" class="gal__item" data-lb="3" aria-label="Open photo: a guest room, double and single beds"><img class="gal__img" src="assets/img/room-beds.jpg" alt="A guest room with a double bed and a single bed, a tall mirror and the bathroom door open" width="1100" height="1214" loading="lazy" decoding="async"></button>
-        <button type="button" class="gal__item" data-lb="4" aria-label="Open photo: the dining room, tables set for guests"><img class="gal__img" src="assets/img/dining.jpg" alt="The dining room, tables laid under a ceiling fan, opening onto the verandah" width="1300" height="998" loading="lazy" decoding="async"></button>
-        <button type="button" class="gal__item" data-lb="5" aria-label="Open photo: the stepping stones to the front door"><img class="gal__img" src="assets/img/entrance-path.jpg" alt="Stepping stones across the garden leading to the front steps of the house" width="1800" height="1162" loading="lazy" decoding="async"></button>
+        <button type="button" class="gal__item" data-lb="0" aria-label="Open photo: the house and garden from the lawn"><img class="gal__img" src="/assets/img/house-garden.jpg" alt="The guest house seen across the lawn, with the tuk-tuk parked by the verandah" width="1800" height="963" loading="lazy" decoding="async"></button>
+        <button type="button" class="gal__item" data-lb="1" aria-label="Open photo: the upstairs balcony and the mango tree"><img class="gal__img" src="/assets/img/balcony.jpg" alt="The upstairs balcony, with turned white balusters, potted plants and a mango tree behind" width="1100" height="1214" loading="lazy" decoding="async"></button>
+        <button type="button" class="gal__item" data-lb="2" aria-label="Open photo: the house from the garden"><img class="gal__img" src="/assets/img/house-front.jpg" alt="The front of the white two-storey house, framed by a tree, with the balconies above the entrance" width="2400" height="1550" loading="lazy" decoding="async"></button>
+        <button type="button" class="gal__item" data-lb="3" aria-label="Open photo: a guest room, double and single beds"><img class="gal__img" src="/assets/img/room-beds.jpg" alt="A guest room with a double bed and a single bed, a tall mirror and the bathroom door open" width="1100" height="1214" loading="lazy" decoding="async"></button>
+        <button type="button" class="gal__item" data-lb="4" aria-label="Open photo: the dining room, tables set for guests"><img class="gal__img" src="/assets/img/dining.jpg" alt="The dining room, tables laid under a ceiling fan, opening onto the verandah" width="1300" height="998" loading="lazy" decoding="async"></button>
+        <button type="button" class="gal__item" data-lb="5" aria-label="Open photo: the stepping stones to the front door"><img class="gal__img" src="/assets/img/entrance-path.jpg" alt="Stepping stones across the garden leading to the front steps of the house" width="1800" height="1162" loading="lazy" decoding="async"></button>
       </div>
     </div>
   </section>
@@ -619,7 +601,7 @@
   </div>
 </template>
 
-<script type="application/ld+json">
+<script type="application/ld+json" is:inline>
 {
   "@context": "https://schema.org",
   "@type": "GuestHouse",
@@ -648,6 +630,4 @@
 }
 </script>
 
-<script src="assets/js/app.js"></script>
-</body>
-</html>
+</Layout>

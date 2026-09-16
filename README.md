@@ -1,25 +1,49 @@
 # Pahan Guest
 
-Static marketing site for a three-room guesthouse in Anuradhapura, Sri Lanka.
-Implemented from the `Kadju House.dc.html` artboard in the *Kadju House website design*
-Claude Design project (which also holds the `BookingForm` component it imports).
-The design was drawn for a fictional south-coast guesthouse; the brand and all
-location copy have since been moved to Pahan Guest in Anuradhapura.
-
-No build step, no dependencies. Open `index.html`, or serve the folder:
+Marketing site for a three-room guesthouse in Anuradhapura, Sri Lanka. An [Astro](https://astro.build)
+project — one page (`src/pages/index.astro`), the design's original vanilla CSS and JS untouched and
+served as plain static files (`public/assets/`), no other framework, no client-side hydration.
+Implemented from the `Kadju House.dc.html` artboard in the *Kadju House website design* Claude Design
+project (which also holds the `BookingForm` component it imports). The design was drawn for a fictional
+south-coast guesthouse; the brand and all location copy have since been moved to Pahan Guest in
+Anuradhapura.
 
 ```sh
-npx serve .          # or: python -m http.server
+npm install
+npm run dev      # http://localhost:4321, live reload
+npm run build    # -> dist/
+npm run preview  # serve dist/ locally, as it will be deployed
 ```
+
+## Why Astro, and why so little of it
+
+This was originally a hand-written flat `index.html` + `assets/`. Moving it into Astro bought a
+dev server, a build step, and a real project layout, for free — but the page has no data to fetch,
+no routes beyond the one, and its interactivity (booking form, overlays, gallery, scroll chrome,
+client-side room "pages" at `#/room/slug`) was already a single self-contained script with no
+framework dependency. Rewriting that into Astro components/islands would have meant re-deriving and
+re-testing ~800 lines of working, already-tested vanilla JS for no behavioural gain. So:
+
+- **`src/pages/index.astro`** is the page — the same markup as the old `index.html`, wrapped in a
+  `<Layout>` for the `<head>` boilerplate. It's one file, not decomposed into components, because
+  nothing on this single-page site repeats across pages.
+- **`public/assets/`** holds the original `styles.css`, `app.js` and every photo, byte-for-byte
+  unchanged, referenced with `is:inline` script tags so Astro passes them through rather than
+  bundling — the CSS and JS are exactly what they were before, just served from a `public/` folder
+  instead of the repo root.
+
+If the site grows into something that actually needs Astro's component model (a blog, multiple real
+pages, server data), decomposing `index.astro` into `src/components/*.astro` is the natural next step
+— nothing here forecloses it.
 
 ## Deploying to Vercel
 
 The repo is already set up for it — no config needed beyond what's committed.
 
 **Via the dashboard:** push this repo to GitHub, then
-[import it on Vercel](https://vercel.com/new). It has no `package.json`, so
-Vercel auto-detects it as a static site (Framework Preset: "Other") and
-deploys the repo root as-is — no build command, no output directory to set.
+[import it on Vercel](https://vercel.com/new). It has an `astro` dependency in `package.json`, so
+Vercel auto-detects the Astro framework preset, runs `astro build`, and serves `dist/` — nothing to
+configure (`vercel.json` also states `"framework": "astro"` explicitly, belt and braces).
 
 **Via the CLI**, from this folder:
 
@@ -30,27 +54,31 @@ npx vercel --prod # promote to production
 
 Two things already handled:
 
-- **`.gitignore`** excludes `Guest house images/` (120MB of raw originals —
-  the site only ever uses the processed copies in `assets/img/`, ~5.5MB
-  total) and `.claude/`, which aren't part of the site.
-- **`vercel.json`** sets a day-long cache on `assets/img/*` (the filenames
-  aren't content-hashed, so nothing longer — replacing a photo under the
-  same name should still reach visitors reasonably soon) plus baseline
-  `X-Content-Type-Options` / `Referrer-Policy` headers. No rewrites are
-  needed: routing is client-side hash fragments (`#/room/garden-room`), so
-  every URL Vercel ever serves is just `index.html`.
+- **`.gitignore`** excludes `node_modules/`, `dist/` and `.astro/` (Astro's cache — all regenerated
+  by `npm install` / `npm run build`), `Guest house images/` (120MB of raw photo originals — the
+  site only ever uses the processed copies in `public/assets/img/`, ~5.5MB total), and `.claude/`,
+  none of which are part of the deployed site.
+- **`vercel.json`** sets a day-long cache on `assets/img/*` (the filenames aren't content-hashed, so
+  nothing longer — replacing a photo under the same name should still reach visitors reasonably
+  soon) plus baseline `X-Content-Type-Options` / `Referrer-Policy` headers. No rewrites are needed:
+  routing is client-side hash fragments (`#/room/garden-room`), so every URL Vercel ever serves is
+  just the one built `index.html`.
 
 ## Files
 
 ```
-index.html              markup for both screens, overlays, and the booking-form template
-assets/css/styles.css   design tokens + all styling
-assets/js/app.js        booking form, overlays, gallery, scroll chrome, routing
+astro.config.mjs             output: 'static' — no adapter, no SSR
+src/layouts/Layout.astro     <head> boilerplate (meta, fonts, the two is:inline scripts)
+src/pages/index.astro        the whole page — markup for both screens, overlays, booking-form template
+public/assets/css/styles.css design tokens + all styling — unchanged from the original, passthrough
+public/assets/js/app.js      booking form, overlays, gallery, scroll chrome, routing — unchanged, passthrough
+public/assets/img/           the site's photography — unchanged, passthrough
 ```
 
 ## Configuration
 
-The WhatsApp number and the house name are read from `<body>` — change them in one place:
+The WhatsApp number and the house name are read from `<body>` in `src/pages/index.astro` — change
+them in one place:
 
 ```html
 <body data-phone="94772813748" data-house="Pahan Guest">
@@ -76,20 +104,18 @@ Copy inherited from the design template that describes a business that does not 
   Mawatha, Anuradhapura, and `+94 77 281 3748`. Postcode 50000 and North Central Province were
   inferred (correct for Anuradhapura) and not on the flyer — worth confirming.
 - **Email is still a placeholder** — `reservations@pahanguest.lk` — no real address was given.
-- **Prices** — US$42 / US$55 / US$78 are from the template.
 - **Distances** — the times to Sri Maha Bodhi, Ruwanwelisaya, Mihintale, Isurumuniya and
   Nuwara Wewa are plausible for a town guesthouse but depend on where the house actually is.
 
-Room copy, prices and the collage captions live at the top of `assets/js/app.js`
-(`ROOMS`, `PHOTOS`). Room prices are also written into the cards in `index.html`.
-The gallery is the collage described below — six photos, no filter grid.
+Prices were on the site (US$42 / US$55 / US$78, from the design template) and have been removed
+at the owner's request — no room card, the room detail page, or `ROOMS` in `app.js` mentions a
+rate; ask on WhatsApp instead. Room copy and the gallery captions still live at the top of
+`public/assets/js/app.js` (`ROOMS`, `PHOTOS`).
 
 ## Photography
 
-The gallery collage uses real photographs of the house, in `assets/img/`. Each is
-pre-cropped to its slot's exact aspect ratio and resized for the largest size it reaches
-during the zoom (the centre photo at 2400px, the rest 1100–1800px) — about 2 MB for all six.
-Originals are in `Guest house images/`.
+The gallery is a plain grid of real photographs of the house, in `public/assets/img/`. Originals
+are in `Guest house images/`.
 
 | slot | file | shows |
 | --- | --- | --- |
@@ -100,23 +126,25 @@ Originals are in `Guest house images/`.
 | 5 | `dining.jpg` | dining room under the ceiling fan |
 | 6 | `entrance-path.jpg` | stepping stones to the front steps |
 
-Everything else on the site is still a striped placeholder. The `data-shot` attribute on each one is the brief
-for that frame and renders as caption text while the placeholder is in place:
+The room detail page's three small photos (bed detail, bathroom, view from the window — there's no
+real shot of any of these yet) are still a striped placeholder. The `data-shot` attribute on each
+one is the brief for that frame and renders as caption text while the placeholder is in place:
 
 ```html
-<div class="ph ph--3x4" data-shot="front of the white two-storey house at golden hour"></div>
+<div class="ph ph--3x4" data-shot="bed detail"></div>
 ```
 
-To drop in a real photo, replace the element and keep the aspect-ratio class off:
+To drop in a real photo, replace the element, add it under `public/assets/img/`, and keep the
+aspect-ratio class off:
 
 ```html
-<img src="assets/img/house-front.jpg" alt="The front of the house at golden hour" width="1200" height="1600" loading="lazy">
+<img src="/assets/img/bed-detail.jpg" alt="The bed, made up with the mosquito net down" width="1200" height="1600" loading="lazy">
 ```
 
 ## The hero slideshow
 
 The hero is a crossfading photo slideshow, not a video — four real photos in
-`#heroSlideshow` (`assets/img/hero-1.jpg` … `hero-4.jpg`), each a stacked
+`#heroSlideshow` (`/assets/img/hero-1.jpg` … `hero-4.jpg`), each a stacked
 full-bleed `<img>`. `app.js` toggles `.is-on` on the next slide every 5s
 (`SLIDE_MS`); the fade itself is a CSS `opacity` transition on `.hero__slide`.
 
@@ -133,13 +161,12 @@ To add or replace slides, add another `<img class="hero__slide">` inside
 `#heroSlideshow` and nothing else needs to change — `slides.length` is read
 from the DOM. Each source photo was resized to 2400×1500 (`fit: cover`) since
 the CSS already applies `object-fit: cover`, so browser-side cropping handles
-every viewport; there was no need to hand-crop per aspect ratio the way the
-gallery collage's fixed slots required.
+every viewport; no hand-cropping per aspect ratio needed.
 
 If you'd rather use a real video clip here instead, swap `#heroSlideshow` for
 a single `<video class="hero__video" autoplay muted loop playsinline poster="…">`
-— the CSS rule for `.hero__video` still exists in `styles.css` for that path,
-and `assets/video/` is on `.gitignore`-free by default if you add files there.
+— the CSS rule for `.hero__video` still exists in `public/assets/css/styles.css` for that path.
+Put the file under `public/assets/video/`; nothing needs excluding for it in `.gitignore`.
 
 ## How this differs from the artboard
 
@@ -160,47 +187,25 @@ The canvas file is a design surface; four things were translated rather than cop
 
 Colours, type scale and spacing are unchanged from the design.
 
-## The gallery collage
+## The gallery
 
-The gallery opens with a pinned zoom collage, rebuilt from the "scale grid" section on
-discoverybuildersllc.com. `.sg` is a 400vh runway, `.sg__wrap` sticks to the viewport for its
-whole length, and scroll progress drives three things at once:
+`.gal__grid` is a plain responsive CSS grid — `repeat(auto-fit, minmax(240px, 1fr))`, uniform 4:3
+tiles, `object-fit: cover`, no overlap, no scroll-driven animation. Clicking any photo opens the
+same fullscreen lightbox as everywhere else on the site (`data-lb` is a generic hook, not specific
+to the gallery); `PHOTOS` in `app.js` is indexed to match the six tiles in DOM order.
 
-| | start | end |
-| --- | --- | --- |
-| `.sg__content` (the whole canvas) | `scale(1)` | `scale(cover)` — reference photo fills the screen |
-| reference photo inside its frame | `scale(1.5)` | `scale(1)` |
-| the other five photos | `scale(1)`, opaque | `scale(0.75)`, transparent |
+An earlier version pinned the section and scrubbed a scroll-driven zoom across six absolutely-
+positioned, deliberately overlapping tiles (rebuilt from the "scale grid" section on
+discoverybuildersllc.com). It read as broken clutter rather than a deliberate effect and was
+replaced outright — nothing about it survives, including the reduced-motion path, which needed no
+special-casing to begin with once the layout stopped depending on scroll position.
 
-The counter-zoom on the reference is the detail that makes it work: the frame travels a long
-way while the picture inside barely magnifies.
-
-Geometry is `em` against a viewport-derived font size, so the canvas is fluid. The original
-sets `html { font-size: calc(9 * 100vw / 1600) }` globally; this site keeps its own root size
-and puts that ratio on `.sg__wrap` instead, so nothing else is affected. The six slot positions
-are the source's, unchanged.
-
-Two deliberate differences from the original:
-
-- **No GSAP.** The source uses GSAP + ScrollTrigger with `scrub: true` and `ease: 'power1.inOut'`.
-  A scrubbed timeline is a linear mapping from scroll progress to a number, so it is a few lines
-  of arithmetic here — `power1.inOut` is quadratic in-out, reproduced exactly — rather than a
-  70 KB dependency on a site that otherwise ships none.
-- **Cover semantics for the target scale.** The source computes
-  `ww > wh ? ww / refWidth : wh / refHeight`, which picks its axis by which side of the *window*
-  is longer rather than by which one actually covers. On a squarish display (1280×1024) that
-  ends about 200px short and the page background shows above and below the photo. This uses
-  `Math.max(ww / refWidth, wh / refHeight)` — identical on 16:9 and 16:10, correct everywhere else.
-
-Below 821px the whole effect is off: no runway, no pinning, and only the reference photo renders,
-as a normal 16:10 block. Under `prefers-reduced-motion` it becomes a still picture of the same
-collage — laid out, unpinned, no zoom. Each photo opens the lightbox; `PHOTOS` in `app.js` is indexed to match the six slots.
-
-To tune the scroll length, change `--sg-runway` (default `400vh`) on `.sg`.
+Press feedback and the hover-zoom use the same shared conventions as every other button/photo on
+the site (`--press`, `--t-press`, the `@media (hover: hover)` gate) — see Motion, below.
 
 ## Motion
 
-All timing lives in the tokens at the top of `styles.css`. The rules behind them:
+All timing lives in the tokens at the top of `public/assets/css/styles.css`. The rules behind them:
 
 - **One curve.** `--ease: cubic-bezier(0.22, 1, 0.36, 1)` is the design's own, and it is
   already a strong ease-out, so it covers entrances and feedback. `--ease-drawer` is the

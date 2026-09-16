@@ -1,6 +1,11 @@
 # Raw source photography (120MB+ of originals, incl. RAW .dng files).
-# The site only ever references the processed, resized copies in assets/img.
+# The site only ever references the processed, resized copies in public/assets/img.
 Guest house images/
+
+# Node / Astro
+node_modules/
+dist/
+.astro/
 
 # Claude Code project metadata — not part of the site.
 .claude/

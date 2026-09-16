@@ -536,91 +536,35 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .gal .h2 { margin-bottom: 14px; }
 .gal__sub { max-width: 52ch; margin-bottom: clamp(26px, 4vw, 48px); }
 
-/* ============================ scale grid =============================
-   Pinned zoom collage — the gallery itself. Rebuilt from the "scale grid"
-   section on discoverybuildersllc.com.
+/* ---------------------------- gallery grid ---------------------------
+   Plain, non-overlapping photo grid. Replaced an earlier pinned-zoom
+   collage (absolute-positioned, deliberately overlapping tiles, scroll-
+   scrubbed) that read as broken/cluttered rather than deliberate.
+   -------------------------------------------------------------------- */
+.gal__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(12px, 1.6vw, 20px);
+  margin-top: clamp(28px, 4vw, 48px);
+}
 
-   How it works: .sg is a tall runway, .sg__wrap sticks to the viewport
-   for its whole length, and scroll progress scales .sg__content up until
-   the reference photo fills the screen. The photo inside the reference
-   un-zooms 1.5 -> 1 at the same time, so the picture barely magnifies
-   while its frame travels a long way; the other five shrink and fade.
-
-   All geometry is in em against a viewport-derived font size, so the
-   canvas is fluid. The original sets html{font-size:calc(9*100vw/1600)};
-   this site keeps its own root size and puts that ratio on .sg__wrap.
-   ==================================================================== */
-.sg { margin-block: clamp(36px, 5vw, 72px); }
-
-.sg__item {
-  position: relative;
-  display: none;             /* narrow: only the reference photo shows */
+.gal__item {
+  display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 4 / 3;
   overflow: hidden;
   padding: 0;
   border: 0;
   background: var(--forest-deep);
   cursor: zoom-in;
-  /* Press feedback goes through filter, not transform or opacity —
-     the scroll animation owns both of those channels here. */
-  transition: filter var(--t-press) var(--ease);
 }
-.sg__item--ref { display: block; }
-.sg__item:active { filter: brightness(0.92); }
 
-/* Works as-is for a <span> (striped placeholder) or an <img> that
-   replaces it — swap the tag, keep the class. */
-.sg__media {
-  position: absolute;
-  inset: 0;
+.gal__img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  background: repeating-linear-gradient(135deg, var(--ph-a) 0 12px, var(--ph-b) 12px 24px);
-}
-
-@media (min-width: 821px) {
-  .sg {
-    position: relative;
-    height: var(--sg-runway, 400vh);
-    margin-block: 0;
-  }
-
-  .sg__wrap {
-    position: sticky;
-    top: 0;
-    height: 100svh;
-    overflow: hidden;
-    font-size: calc(9 * 100vw / 1600);   /* 1em = 9px at a 1600px viewport */
-  }
-
-  .sg__content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 129.6em;
-    height: 127.8em;
-    transform: translate(-50%, -50%) scale(var(--sg-s, 1));
-    will-change: transform;
-  }
-
-  .sg__item {
-    position: absolute;
-    display: block;
-    width: auto;
-    aspect-ratio: auto;
-  }
-
-  .sg__item:nth-child(1) { top: 0;         left: 32.9em; width: 77em;   height: 41.2em; }
-  .sg__item:nth-child(2) { top: 50.3em;    left: 0;      width: 30.9em; height: 34.1em; }
-  .sg__item:nth-child(3) { top: 43.2em;    left: 32.9em; width: 63.8em; height: 41.2em; }
-  .sg__item:nth-child(4) { top: 50.3em;    right: 0;     width: 30.9em; height: 34.1em; }
-  .sg__item:nth-child(5) { bottom: 12.6em; left: 6.6em;  width: 37.5em; height: 28.8em; }
-  .sg__item:nth-child(6) { bottom: 0;      left: 46.1em; width: 63.8em; height: 41.2em; }
-
-  .sg__item--ref .sg__media { transform: scale(var(--sg-ref, 1.5)); }
+  transition: transform 500ms var(--ease);
 }
 
 /* ------------------------------ location ---------------------------- */
@@ -1203,6 +1147,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .hdr__burger,
 .menu__x,
 .sheet__x,
+.gal__item,
 .lb__x {
   transition-property: transform, background-color, color, border-color;
   transition-duration: var(--t-press);
@@ -1218,6 +1163,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .hdr__burger:active,
 .menu__x:active,
 .sheet__x:active,
+.gal__item:active,
 .lb__x:active {
   transform: scale(var(--press, 0.97));
 }
@@ -1229,6 +1175,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 @media (hover: hover) and (pointer: fine) {
   .btn--terracotta:hover { background: var(--terracotta-dark); color: var(--white); }
   .step__b:hover:not(:disabled) { background: var(--mist); }
+  .gal__item:hover .gal__img { transform: scale(1.04); }
   .marq:hover .marq__row { animation-play-state: paused; }
 }
 
@@ -1326,11 +1273,4 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .marq__row { animation: none; }
   .hero__frame { transform: none !important; }
   .hdr.is-hidden { transform: none; } /* don't snap the header off-screen */
-
-  /* The collage stops being a scroll animation and becomes a plain
-     picture: no runway, no pinning, no zoom — just the laid-out grid. */
-  .sg { height: auto; margin-block: clamp(36px, 5vw, 72px); }
-  .sg__wrap { position: static; height: auto; overflow: visible; }
-  .sg__content { position: relative; top: auto; left: auto; transform: none; margin-inline: auto; }
-  .sg__item--ref .sg__media { transform: none; }
 }

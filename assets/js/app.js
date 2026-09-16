@@ -444,92 +444,6 @@
   $('[data-lb-next]').addEventListener('click', function () { stepLb(1); });
 
   /* =====================================================================
-     Pinned zoom collage (gallery lead-in)
-
-     Rebuilt from the "scale grid" on discoverybuildersllc.com, which drives
-     it with GSAP ScrollTrigger:
-
-       scale = ww > wh ? ww / refWidth : wh / refHeight
-       timeline({ scrub: true, ease: 'power1.inOut' })
-         .to(content,  { scale })
-         .to(refImage, { scale: 1 }, 0)     // from 1.5 in CSS
-         .to(others,   { scale: 0.75, alpha: 0 }, 0)
-
-     Same curve and same numbers here, without the 70 KB of dependency —
-     it is a linear scrub, which is a few lines of arithmetic.
-     ===================================================================== */
-  var sgFrame = null;
-
-  (function () {
-    var sg = $('.sg');
-    if (!sg) return;
-
-    var content  = $('.sg__content', sg);
-    var ref      = $('.sg__item--ref', sg);
-    var refMedia = $('.sg__media', ref);
-    var others   = $$('.sg__item', sg).filter(function (n) { return n !== ref; });
-
-    var target = 1;
-    var lastE  = -1;
-
-    function measure() {
-      // offsetWidth/Height are layout metrics, so an ancestor's scale
-      // does not feed back into the number we are computing here.
-      var rw = ref.offsetWidth, rh = ref.offsetHeight;
-      // The source picks its axis with `ww > wh ? ww/rw : wh/rh`, which is
-      // only correct when the window is wider than the photo's 1.55:1. On a
-      // squarer display (1280x1024) it ends ~200px short and the background
-      // shows through. max() is cover semantics: identical on 16:9 and 16:10,
-      // correct everywhere else.
-      target = (rw && rh) ? Math.max(window.innerWidth / rw, window.innerHeight / rh) : 1;
-    }
-
-    function clear() {
-      lastE = -1;
-      content.style.removeProperty('--sg-s');
-      refMedia.style.removeProperty('--sg-ref');
-      others.forEach(function (n) {
-        n.style.transform = '';
-        n.style.opacity = '';
-        n.style.pointerEvents = '';
-      });
-    }
-
-    function frame() {
-      if (reduced || NARROW.matches) return;
-
-      var runway = sg.offsetHeight - window.innerHeight;
-      if (runway <= 0) return;
-
-      var p = Math.min(1, Math.max(0, -sg.getBoundingClientRect().top / runway));
-      // GSAP power1.inOut — quadratic in, quadratic out.
-      var e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
-      if (Math.abs(e - lastE) < 0.0015) return;
-      lastE = e;
-
-      content.style.setProperty('--sg-s', (1 + (target - 1) * e).toFixed(4));
-      refMedia.style.setProperty('--sg-ref', (1.5 - 0.5 * e).toFixed(4));
-
-      var s = (1 - 0.25 * e).toFixed(4);
-      var a = (1 - e).toFixed(3);
-      others.forEach(function (n) {
-        n.style.transform = 'scale(' + s + ')';
-        n.style.opacity = a;
-        // Faded-out photos must stop catching clicks.
-        n.style.pointerEvents = e > 0.6 ? 'none' : '';
-      });
-    }
-
-    sgFrame = frame;
-    measure();
-
-    window.addEventListener('resize', function () {
-      measure();
-      if (reduced || NARROW.matches) clear();
-    }, { passive: true });
-  })();
-
-  /* =====================================================================
      FAQ
      ===================================================================== */
   $$('.qa__q').forEach(function (q) {
@@ -736,9 +650,6 @@
 
     /* mobile action bar */
     mobileBar.classList.toggle('is-on', y > vh * 0.85);
-
-    /* pinned zoom collage */
-    if (sgFrame) sgFrame();
 
     lastY = y;
     ticking = false;

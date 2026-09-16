@@ -326,22 +326,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   );
 }
 
-.hero__vidbtn {
-  position: absolute;
-  top: clamp(76px, 10vh, 110px);
-  right: var(--gut);
-  z-index: 3;
-  min-height: 44px;
-  padding: 9px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(245, 240, 230, 0.5);
-  background: rgba(255, 255, 255, 0.14);
-  color: var(--sand);
-  font: 500 0.8125rem/1 Inter, sans-serif;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-}
-
 .hero__text {
   position: relative;
   z-index: 2;
@@ -730,21 +714,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .book .h2 { margin-bottom: 14px; }
 .book__sub { max-width: 46ch; margin-bottom: 28px; }
 
-.qr { display: flex; gap: 18px; align-items: center; }
-.qr__box {
-  width: 104px;
-  height: 104px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  border: 1px solid var(--mist);
-  background: repeating-linear-gradient(135deg, var(--mist) 0 6px, var(--sand) 6px 12px);
-  font: 400 0.6875rem/1.4 ui-monospace, Menlo, monospace;
-  color: var(--muted);
-}
-.qr__cap { max-width: 24ch; font: 400 0.9375rem/1.5 Inter, sans-serif; color: var(--muted); }
-
 .book__contact {
   margin-top: 24px;
   font: 400 1rem/1.8 Inter, sans-serif;
@@ -774,21 +743,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   font-variant-numeric: tabular-nums;
   color: var(--sage);
 }
-.foot__txt--gap { margin-bottom: 16px; }
 .foot__txt a { color: var(--sage); }
-
-.foot__map {
-  height: 96px;
-  display: flex;
-  align-items: flex-end;
-  padding: 8px;
-  background: repeating-linear-gradient(135deg, var(--forest) 0 10px, var(--forest-lift) 10px 20px);
-}
-.foot__map::before {
-  content: attr(data-shot);
-  font: 400 0.6875rem/1.4 ui-monospace, Menlo, monospace;
-  color: var(--sage);
-}
 
 .foot__legal {
   max-width: var(--max);
@@ -1187,7 +1142,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .fab__btn,
 .mbar__wa,
 .lb__nav,
-.hero__vidbtn,
 .hdr__burger,
 .menu__x,
 .sheet__x,
@@ -1203,7 +1157,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .fab__btn:active,
 .mbar__wa:active,
 .lb__nav:active,
-.hero__vidbtn:active,
 .hdr__burger:active,
 .menu__x:active,
 .sheet__x:active,
@@ -1269,8 +1222,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
   .fab { display: none; }
   .mbar { display: flex; }
-
-  .qr { display: none; }
 
   .welcome__pics { padding-bottom: 64px; }
   .frame--inset { right: 0; width: min(52%, 220px); }

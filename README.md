@@ -103,7 +103,6 @@ Copy inherited from the design template that describes a business that does not 
 - **Address and phone are real**, from the owner's flyer: No. 1050, Stage 2, D. S. Senanayake
   Mawatha, Anuradhapura, and `+94 77 281 3748`. Postcode 50000 and North Central Province were
   inferred (correct for Anuradhapura) and not on the flyer — worth confirming.
-- **Email is still a placeholder** — `reservations@pahanguest.lk` — no real address was given.
 - **Distances** — the times to Sri Maha Bodhi, Ruwanwelisaya, Mihintale, Isurumuniya and
   Nuwara Wewa are plausible for a town guesthouse but depend on where the house actually is.
 
@@ -150,8 +149,6 @@ full-bleed `<img>`. `app.js` toggles `.is-on` on the next slide every 5s
 
 - Pauses when the tab is hidden (`visibilitychange`), so a background tab
   doesn't burn through slides unseen, and resumes when it's visible again.
-- The existing "Pause slideshow" button stops/resumes it — same control the
-  design used for a video, relabelled.
 - Doesn't auto-advance at all under `prefers-reduced-motion` — it stays on
   the first slide unless the visitor manually pauses/plays.
 - The first slide loads `fetchpriority="high"` with no `loading` attribute

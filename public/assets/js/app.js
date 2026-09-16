@@ -458,10 +458,8 @@
 
      Plain crossfade cycler: toggle .is-on on the next <img>, CSS does the
      fade (see .hero__slide). Pauses when the tab is hidden so a background
-     tab doesn't burn through slides unseen, and the existing pause button
-     stops/resumes it on request.
+     tab doesn't burn through slides unseen.
      ===================================================================== */
-  var vidBtn = $('[data-video-toggle]');
   var heroFrame = $('#heroFrame');
   var slideshow = $('#heroSlideshow');
 
@@ -469,7 +467,6 @@
     var slides = $$('.hero__slide', slideshow);
     var slideIx = 0;
     var slideTimer = null;
-    var slidesPaused = false;
     var SLIDE_MS = 5000;
 
     function nextSlide() {
@@ -491,14 +488,7 @@
 
     document.addEventListener('visibilitychange', function () {
       if (document.hidden) stopSlides();
-      else if (!slidesPaused && !reduced) startSlides();
-    });
-
-    vidBtn.addEventListener('click', function () {
-      slidesPaused = !slidesPaused;
-      if (slidesPaused) stopSlides(); else startSlides();
-      vidBtn.setAttribute('aria-pressed', String(slidesPaused));
-      vidBtn.textContent = slidesPaused ? 'Play slideshow' : 'Pause slideshow';
+      else if (!reduced) startSlides();
     });
   }
 

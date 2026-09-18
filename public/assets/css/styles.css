@@ -11,16 +11,15 @@
   /* surfaces */
   --sand:        #F5F0E6;
   --white:       #FFFFFF;
-  --mist:        #DDE5D8;
-  --forest:      #2F4A3A;
-  --forest-deep: #22382C;
-  --forest-mid:  #3C5646;
-  --forest-lift: #35513F;
+  --mist:        #D9E4D1;
+  --forest:      #1F5C43;
+  --forest-deep: #153327;
+  --forest-mid:  #1D4735;
 
   /* ink */
   --ink:    #1F2A24;
-  --muted:  #56615A;
-  --sage:   #A8B8A0;
+  --muted:  #3D5C45;
+  --sage:   #A9C293;
 
   /* accent */
   --terracotta:      #A9532F;
@@ -188,7 +187,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 .ph--warm { background: repeating-linear-gradient(135deg, var(--ph-a) 0 12px, var(--sand) 12px 24px); }
 .ph--film {
-  background: repeating-linear-gradient(135deg, var(--forest-mid) 0 14px, #44604E 14px 28px);
+  background: repeating-linear-gradient(135deg, var(--forest-mid) 0 14px, var(--forest) 14px 28px);
   padding: 18px;
 }
 .ph--film::before { color: var(--mist); }
@@ -290,7 +289,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   overflow: hidden;
   transform-origin: 50% 42%;
   will-change: transform;
-  background: repeating-linear-gradient(135deg, var(--forest-mid) 0 14px, #44604E 14px 28px);
+  background: repeating-linear-gradient(135deg, var(--forest-mid) 0 14px, var(--forest) 14px 28px);
 }
 .hero__frame > .ph { position: absolute; inset: 0; align-items: flex-end; }
 
@@ -973,7 +972,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: repeating-linear-gradient(135deg, #2A3F33 0 14px, #32493B 14px 28px);
+  background: repeating-linear-gradient(135deg, var(--forest-deep) 0 14px, var(--forest-mid) 14px 28px);
 }
 .lb__cap {
   font: 400 0.8125rem/1.6 ui-monospace, Menlo, monospace;
